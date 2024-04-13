@@ -68,3 +68,40 @@ npm install
 ```bash
 npm start
 ```
+
+# Tutorial do site
+
+## Para cadastrar sua empresa basta acessa http://localhost:4200 (Certifique de que o server esteja rodando na porta 8000 juntamente com o banco de dados)
+
+<div>
+<img src="1.png"/>
+</div>
+
+## Insira um nome e clique em enviar para registar sua empresa
+
+<div>
+<img src="2.png"/>
+</div>
+
+## Tabela de funcionamento de cada ícone:
+
+1. **Lixo:** Deleta a empresa e todos os seus funcionários
+2. **Lápis:** Permite alterar o nome da empresa
+3. **Disquete:** Salva as alterações feitas
+
+   **Ps I:** Quando você clica na canetao nome da empresa ficará sublinhado e você poderá editá-lo
+
+   **Ps I:** Para ver os funcionários cadastrados, clique no ID (número) da empresa em vermelho no canto superior esquerdo da cada card empresa
+
+<div style="display: flex; width: 50%">
+<img src="3.png" style="width: 100%"/>
+<img src="4.png" style="width: 100%"/>
+</div>
+
+# Para cadastrar um novo sócio a empresa escolhida basta colocar o nome e clicar em enviar
+
+## Os ícones nessa tela tem o mesmo funcionamento da tela anterior
+
+<div>
+<img src="5.png"/>
+</div>
