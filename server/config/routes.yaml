@@ -1,0 +1,45 @@
+controllers:
+  resource:
+    path: ../src/Controller/
+    namespace: App\Controller
+  type: attribute
+
+empresa_create:
+  path: /cadastrar-empresas
+  controller: App\Controller\EmpresaController::create
+  methods: [POST]
+
+empresa_read:
+  path: /listar-empresas
+  controller: App\Controller\EmpresaController::read
+  methods: [GET]
+
+empresa_update:
+  path: /atualizar-empresa/{id}
+  controller: App\Controller\EmpresaController::update
+  methods: [PUT]
+
+empresa_delete:
+  path: /deletar-empresa/{id}
+  controller: App\Controller\EmpresaController::delete
+  methods: [DELETE]
+
+socios_create:
+  path: /cadastrar-socios
+  controller: App\Controller\SocioController::create
+  methods: [POST]
+
+socios_read:
+  path: /listar-socios/{id}
+  controller: App\Controller\SocioController::read
+  methods: [GET]
+
+socios_update:
+  path: /atualizar-socio/{id}
+  controller: App\Controller\SocioController::update
+  methods: [PUT]
+
+socios_delete:
+  path: /deletar-socio/{id}
+  controller: App\Controller\SocioController::delete
+  methods: [DELETE]

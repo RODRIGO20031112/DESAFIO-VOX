@@ -1,0 +1,227 @@
+<style>
+  #adicionar-socios-form {
+    width: 100%;
+    color: #d3d3d3;
+    outline: none;
+  }
+  #adicionar-socios-form button {
+    width: 100%;
+    color: #d3d3d3;
+    margin-top: 20px;
+    border: none;
+    background-color: transparent;
+    border: 1px solid #dedede;
+    padding: 10px;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    transition: all 300ms ease;
+    outline: none;
+  }
+  #adicionar-socios-form button:hover {
+    cursor: pointer;
+    background-color: #d3d3d3;
+    color: black;
+    transition: all 300ms ease;
+    outline: none;
+  }
+  .content-form {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    outline: none;
+  }
+  .content-form label {
+    width: 200px;
+    font-size: 1.1rem;
+    outline: none;
+  }
+  #nome-socio {
+    width: 100%;
+    height: 30px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #d3d3d3;
+    font-size: 1.1rem;
+    outline: none;
+    color: #d3d3d3;
+  }
+  .container {
+    background-color: rgba(0, 0, 0, 0.288);
+    position: relative;
+    z-index: 3;
+    height: 100vh;
+    max-height: 750px;
+  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  .socios-table {
+    margin-top: 20px;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  .td-data {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .td-data span {
+    cursor: pointer;
+  }
+  .socios-table th {
+    background-color: #232323dc;
+    color: #d3d3d3;
+  }
+
+  .socios-table th,
+  .socios-table td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+
+  .socios-table tr:nth-child(even) td {
+    background-color: #232323e1;
+    color: #d3d3d3;
+  }
+
+  .socios-table tr:nth-child(odd) td {
+    background-color: #232323;
+    color: #d3d3d3;
+  }
+  .loader {
+    width: fit-content;
+    padding-bottom: 20px;
+    left: 0;
+    width: 100%;
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 20px;
+    overflow: hidden;
+    color: #0000;
+    text-shadow: 0 0 0 #d3d3d3, 10ch 0 0 #d3d3d3;
+    background: linear-gradient(#d3d3d3 0 0) bottom left/0% 3px no-repeat;
+    animation: l14 1.5s infinite;
+  }
+  .loader:before {
+    content: "";
+  }
+  @keyframes l14 {
+    80% {
+      text-shadow: 0 0 0 #d3d3d3, 10ch 0 0 #d3d3d3;
+      background-size: 100% 3px;
+    }
+    100% {
+      text-shadow: -10ch 0 0 #d3d3d3, 0 0 0 #d3d3d3;
+    }
+  }
+  .underline {
+    text-decoration: underline;
+  }
+  .emp-dados {
+    background-color: transparent;
+    font-size: 1rem;
+    color: #d3d3d3;
+    border: none;
+    cursor: pointer;
+  }
+  .save-edit span {
+    margin-left: 15px;
+    cursor: pointer;
+  }
+</style>
+
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+/>
+
+<div class="container">
+  <div class="content">
+    <form
+      id="adicionar-socios-form"
+      #myForm="ngForm"
+      (ngSubmit)="cadastrarSocios(id)"
+    >
+      <div class="content-form">
+        <label for="nome-socio">Adicionar Sócio:</label>
+        <input
+          type="text"
+          id="nome-socio"
+          name="nome-socio"
+          placeholder="Nome do sócio"
+          [(ngModel)]="nomeSocio"
+        />
+      </div>
+
+      <button type="submit">Enviar</button>
+    </form>
+    <div class="loader" *ngIf="isLoading"></div>
+    <table class="socios-table">
+      <thead>
+        <tr>
+          <th>Id do Sócio</th>
+          <th>Id da Empresa</th>
+          <th>Nome do Sócio</th>
+          <th>Data Criação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let socio of dataSocios">
+          <td>{{ socio.socio_id }}</td>
+          <td>{{ socio.id_empresa }}</td>
+          <td>
+            <div class="td-data">
+              <input
+                type="text"
+                class="emp-dados"
+                value="{{ socio.nome_socio }}"
+                [readonly]="editableEmpresaId !== socio.socio_id"
+                [ngClass]="{
+                  underline: editableEmpresaId === socio.socio_id
+                }"
+                [(ngModel)]="socio.nome_socio"
+                name="nome_empresa"
+              />
+              <div class="save-edit">
+                <span
+                  class="material-symbols-outlined"
+                  (click)="toggleReadOnly(socio.socio_id)"
+                >
+                  edit
+                </span>
+                <span
+                  class="material-symbols-outlined"
+                  (click)="
+                    updateSocio(
+                      socio.socio_id,
+                      socio.nome_socio,
+                      socio.id_empresa
+                    )
+                  "
+                >
+                  save_as
+                </span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="td-data">
+              {{ socio.data_criacao }}
+              <span
+                class="material-symbols-outlined"
+                (click)="deleteSocio(socio.socio_id, socio.id_empresa)"
+              >
+                delete
+              </span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
